@@ -1,15 +1,25 @@
 package edu.bionic;
 
+
+import java.math.BigDecimal;
+
 public class Product {
 
     private Integer id;
     private String name;
-    private double price;
+    private BigDecimal price;
+    private Color color;
+    private Integer capasity;
+    private String display;
 
-    public Product(Integer id, String name, double price) {
+
+    public Product(Integer id, String name, BigDecimal price, Color color, Integer capasity, String display) {
         this.id = id;
         this.name = name;
         this.price = price;
+        this.color = color;
+        this.capasity = capasity;
+        this.display = display;
     }
 
     public Integer getId() {
@@ -28,11 +38,46 @@ public class Product {
         this.name = name;
     }
 
-    public double getPrice() {
+    public BigDecimal getPrice() {
         return price;
     }
 
-    public void setPrice(double price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Integer getCapasity() {
+        return capasity;
+    }
+
+    public void setCapasity(Integer capasity) {
+        this.capasity = capasity;
+    }
+
+    public String getDisplay() {
+        return display;
+    }
+
+    public void setDisplay(String display) {
+        this.display = display;
+    }
+
+    public String printInfo() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", color=" + color +
+                ", display='" + display + '\'' +
+                ", capasity=" + capasity +
+                '}';
     }
 }
