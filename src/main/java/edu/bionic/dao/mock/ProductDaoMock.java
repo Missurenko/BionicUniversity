@@ -1,19 +1,15 @@
 package edu.bionic.dao.mock;
 
-import edu.bionic.Color;
-import edu.bionic.Product;
 import edu.bionic.dao.ProductDao;
+import edu.bionic.domain.Color;
+import edu.bionic.domain.Product;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-/**
- * Created by bm on 05.07.17.
- */
-public class ProduckDaoMock implements ProductDao {
-
+public class ProductDaoMock implements ProductDao {
 
     private List<Product> productStorage;
 

@@ -1,7 +1,13 @@
 package edu.bionic.service;
 
-/**
- * Created by bm on 05.07.17.
- */
+import edu.bionic.domain.Order;
+import edu.bionic.domain.Product;
+
+import java.util.List;
+
 public interface OrderService {
+
+    List<Order> getAll();
+
+    void createNewOrder(List<Product> products);
 }

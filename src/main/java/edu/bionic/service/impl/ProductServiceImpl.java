@@ -1,21 +1,22 @@
 package edu.bionic.service.impl;
 
-import edu.bionic.Product;
 import edu.bionic.dao.ProductDao;
+import edu.bionic.domain.Product;
 import edu.bionic.service.ProductService;
+import edu.bionic.util.exception.NotFoundException;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Created by bm on 05.07.17.
- */
+@Service
 public class ProductServiceImpl implements ProductService {
 
     private ProductDao productDao;
 
-
+    @Autowired
     public ProductServiceImpl(ProductDao productDao) {
         this.productDao = productDao;
     }
@@ -31,8 +32,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(int productId) {
         return productDao.getById(productId).
-                orElseThrow(() -> new RuntimeException(String.format("Product with id=%d was not found", productId)));
+                orElseThrow(() -> new NotFoundException(String.format("Product with id=%d was not found", productId)));
     }
 }
-
-

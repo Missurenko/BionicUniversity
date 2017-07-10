@@ -1,25 +1,26 @@
 package edu.bionic.dao.mock;
 
-import edu.bionic.Product;
-import edu.bionic.dao.ProductDao;
+import edu.bionic.dao.OrderDao;
+import edu.bionic.domain.Order;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
-/**
- * Created by bm on 05.07.17.
- */
-public class OrderDaoMock implements ProductDao {
-    private List<Product> productStorage;
+public class OrderDaoMock implements OrderDao {
 
+    private List<Order> orderStorage;
 
     @Override
-    public List<Product> getAll() {
-        return null;
+    public List<Order> getAll() {
+        return new ArrayList<>(orderStorage);
     }
 
     @Override
-    public Optional<Product> getById(int productId) {
-        return null;
+    public void save(Order order) {
+        orderStorage.add(order);
+    }
+
+    public void initOrderStorage() {
+        orderStorage = new ArrayList<>();
     }
 }

@@ -1,5 +1,4 @@
-package edu.bionic;
-
+package edu.bionic.domain;
 
 import java.math.BigDecimal;
 
@@ -9,16 +8,15 @@ public class Product {
     private String name;
     private BigDecimal price;
     private Color color;
-    private Integer capasity;
+    private Integer capacity;
     private String display;
 
-
-    public Product(Integer id, String name, BigDecimal price, Color color, Integer capasity, String display) {
+    public Product(Integer id, String name, BigDecimal price, Color color, Integer capacity, String display) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.color = color;
-        this.capasity = capasity;
+        this.capacity = capacity;
         this.display = display;
     }
 
@@ -54,12 +52,12 @@ public class Product {
         this.color = color;
     }
 
-    public Integer getCapasity() {
-        return capasity;
+    public Integer getCapacity() {
+        return capacity;
     }
 
-    public void setCapasity(Integer capasity) {
-        this.capasity = capasity;
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
     }
 
     public String getDisplay() {
@@ -71,13 +69,6 @@ public class Product {
     }
 
     public String printInfo() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", color=" + color +
-                ", display='" + display + '\'' +
-                ", capasity=" + capasity +
-                '}';
+        return String.format("%d. %s %s %d - %.2f", id, name, color, capacity, price);
     }
 }
