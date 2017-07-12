@@ -17,4 +17,8 @@ public class ProductConsoleController {
     public void printAllProducts() {
         productService.getAll().forEach(product -> System.out.println(product.printInfo()));
     }
+
+    public void printProductByID(Integer productId) {
+        System.out.println(productService.getById(productId).printInfo());
+    }
 }
