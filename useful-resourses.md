@@ -9,7 +9,7 @@
    * [Интеративный обучающий курс 2 (англ.)](https://try.github.io/levels/1/challenges/1)
 2. Maven
    * [Руководство по Maven](http://www.apache-maven.ru/index.html)
-   * [Жизненный цикл сборки проекта (англ.)](http://www.apache-maven.ru/index.html)
+   * [Жизненный цикл сборки проекта (англ.)](https://maven.apache.org/guides/introduction/introduction-to-the-lifecycle.html)
    * [Управление зависимостями (англ.)](http://maven.apache.org/guides/introduction/introduction-to-dependency-mechanism.html)
    * [Maven Complete Guide (англ.)](http://books.sonatype.com/mvnref-book/reference/index.html)
 ### Lecture 2
@@ -18,5 +18,14 @@
    * [Этапы инициализации Spring Context](https://habrahabr.ru/post/222579/)
    * [Документация Spring IoC Framework (англ.)(7-7.6.1; 7.9-7.13)](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html)
    * [Book: Spring In Action 4 (рус.\англ.)(Разделы 2-3)](https://www.manning.com/books/spring-in-action-fourth-edition)
-   * [Полная документация всех модулей Spring (англ.\обзорно)](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/beans.html)
+   * [Полная документация всех модулей Spring (англ.\обзорно)](http://docs.spring.io/spring/docs/current/spring-framework-reference/htmlsingle/)
    * [Google Guava Wiki (англ.\обзорно)](https://github.com/google/guava/wiki)
+### Lecture 3 - HTTP, Tomcat, ServletApi
+   * [Простым языком об HTTP](https://habrahabr.ru/post/215117/)
+   * [Создание простейшего сервлета и jsp-файла](http://devcolibri.com/4284)
+   * [Введение в HTML](https://developer.mozilla.org/ru/docs/Web/Guide/HTML/Introduction)
+   * [Основные тэги в HTML](http://zarabotat-na-sajte.ru/uroki-html/osnovnie-tegi-html.html)
+   * [Как создають форму в HTML](http://zarabotat-na-sajte.ru/uroki-html/teg-form.html)
+   * [Создание простой JSP страницы](http://java-course.ru/student/book1/jsp/)
+   * [Официальный сайт Tomcat. Загрузки. Документация (англ.\обзорно)](http://tomcat.apache.org/)
+   
