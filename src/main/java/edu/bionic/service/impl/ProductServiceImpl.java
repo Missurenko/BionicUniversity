@@ -5,6 +5,7 @@ import edu.bionic.domain.Product;
 import edu.bionic.service.ProductService;
 import edu.bionic.util.exception.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -23,10 +24,11 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<Product> getAll() {
-        return productDao.getAll()
-                .stream()
-                .sorted(Comparator.comparing(Product::getName))
-                .collect(Collectors.toList());
+        return productDao.getAll();
+
+//                .stream()
+//                .sorted(Comparator.comparing(Product::getName))
+//                .collect(Collectors.toList());
     }
 
     @Override
