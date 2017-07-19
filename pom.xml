@@ -8,17 +8,24 @@
     <artifactId>istore</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>iStore WebApplication</name>
 
     <description>WebApplication edducation Bionic Unuversity</description>
     <url>No have</url>
 
     <properties>
+        <!-- Coren-->
         <java.version>1.8</java.version>
         <guava.version>22.0</guava.version>
 
+        <!-- Spring -->
         <spring.version>4.3.9.RELEASE</spring.version>
+
+        <!-- Web -->
+        <servlet.api.version>3.1.0</servlet.api.version>
+        <jsp.api.version>2.3.1</jsp.api.version>
+        <jstl.version>1.2</jstl.version>
     </properties>
 
     <build>
@@ -34,6 +41,16 @@
                     <target>${java.version}</target>
                 </configuration>
             </plugin>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <path>/</path>
+                    <port>8080</port>
+                </configuration>
+            </plugin>
+
         </plugins>
     </build>
 
@@ -82,6 +99,26 @@
             <artifactId>spring-context-support</artifactId>
             <version>${spring.version}</version>
         </dependency>
+        <!-- Spring Web support -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-web</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+        <!-- Java Servlet API -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>javax.servlet-api</artifactId>
+            <version>${servlet.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- Java Server Pages API -->
+        <dependency>
+            <groupId>javax.servlet.jsp</groupId>
+            <artifactId>javax.servlet.jsp-api</artifactId>
+            <version>${jsp.api.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
         <!-- JSR-330 Inject API -->
         <dependency>
@@ -100,6 +137,13 @@
             <artifactId>spring-context</artifactId>
             <version>4.3.8.RELEASE</version>
         </dependency>
+        <!-- JSTL Libraty -->
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>${jstl.version}</version>
+        </dependency>
+
     </dependencies>
 
 
