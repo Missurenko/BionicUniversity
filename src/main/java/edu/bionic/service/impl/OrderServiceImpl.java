@@ -4,6 +4,7 @@ import edu.bionic.dao.OrderDao;
 import edu.bionic.domain.Order;
 import edu.bionic.domain.Product;
 import edu.bionic.service.OrderService;
+import edu.bionic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,10 +16,12 @@ import java.util.List;
 public class OrderServiceImpl implements OrderService {
 
     private OrderDao orderDao;
+    private ProductService productService;
 
     @Autowired
-    public OrderServiceImpl(OrderDao orderDao) {
+    public OrderServiceImpl(OrderDao orderDao, ProductService productService) {
         this.orderDao = orderDao;
+        this.productService = productService;
     }
 
     @Override
@@ -32,5 +35,18 @@ public class OrderServiceImpl implements OrderService {
                 products.stream().map(Product::getPrice).reduce(BigDecimal::add).orElse(BigDecimal.ZERO),
                 products);
         orderDao.save(order);
+    }
+
+    @Override
+    public void addProductToOrder(Order order, Integer productId) {
+        Product newProduct = productService.getById(productId);
+        order.addProduct(newProduct);
+        order.setTotalAmount(
+                order.getProducts()
+                        .stream()
+                        .map(Product::getPrice)
+                        .reduce(BigDecimal::add)
+                        .orElse(BigDecimal.ZERO)
+        );
     }
 }
