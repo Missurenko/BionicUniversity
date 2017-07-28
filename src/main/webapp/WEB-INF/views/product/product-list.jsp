@@ -2,7 +2,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>Каталог товаров</title>
+    <title>iShop | Каталог товаров</title>
 </head>
 <body>
     <h1>Каталог товаров iShop</h1>
@@ -21,5 +21,6 @@
             <li><a href="<c:url value="products/${product.id}"/>">${product.printInfo()}</a></li>
         </c:forEach>
     </ul>
+    <a href="<c:url value="/"/> "><button>На главную</button></a>
 </body>
 </html>

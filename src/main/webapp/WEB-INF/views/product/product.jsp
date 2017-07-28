@@ -2,14 +2,9 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>iShop - ${product.name}</title>
+    <title>iShop | ${product.name}</title>
 </head>
 <body>
-    <c:if test="${basket.products.size() > 0}">
-        <p><strong><i>Количество товаров в корзине: ${basket.products.size()}.
-            Общая сумма ${basket.totalAmount}</i></strong> </p>
-        <hr/>
-    </c:if>
     <h2>${product.name}</h2>
     <h3>Цена: ${product.price} USD</h3>
     <div>
@@ -25,6 +20,12 @@
         </form>
     </div>
     <hr/>
+    <c:if test="${currentOrder.products.size() > 0}">
+        <p><strong><i>Количество товаров в корзине: ${currentOrder.products.size()}.
+            Общая сумма ${currentOrder.totalAmount}</i></strong> </p>
+        <a href="<c:url value="/orders/newOrder"/> "><button>Перейти к оформлению заказа</button></a>
+        <hr/>
+    </c:if>
     <div>
         <h4>Отзывы:</h4>
         <c:forEach items="${comments}" var="comment">

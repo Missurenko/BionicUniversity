@@ -32,6 +32,6 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Product getById(int productId) {
         return productDao.getById(productId).
-                orElseThrow(() -> new NotFoundException(String.format("Product with id=%d was not found", productId)));
+                orElseThrow(() -> new NotFoundException(String.format("Продукт с id=%d не найден", productId)));
     }
 }

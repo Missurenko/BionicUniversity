@@ -13,7 +13,7 @@ import java.time.format.DateTimeFormatter;
 
 @Controller
 @RequestMapping("products")
-@SessionAttributes("basket")
+@SessionAttributes("currentOrder")
 public class ProductController {
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-MM-yyyy HH:mm");
@@ -32,7 +32,7 @@ public class ProductController {
     @GetMapping
     public String showProducts(Model model) {
         model.addAttribute("products",  productService.getAll());
-        return "product-list";
+        return "product/product-list";
     }
 
     @GetMapping("{productId}")
@@ -41,12 +41,12 @@ public class ProductController {
         model.addAttribute("comments", commentService.getByProduct(productId));
         model.addAttribute("dateTimeFormatter", dateTimeFormatter);
 
-        return "product";
+        return "product/product";
     }
 
     @PostMapping("{productId}/addToBasket")
     public String addToBasket(@PathVariable("productId") Integer productId,
-                              @SessionAttribute("basket") Order currentOrder) {
+                              @SessionAttribute("currentOrder") Order currentOrder) {
 
         orderService.addProductToOrder(currentOrder, productId);
 

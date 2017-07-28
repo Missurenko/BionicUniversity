@@ -1,7 +1,8 @@
 package edu.bionic.domain;
 
 import com.google.common.collect.ImmutableList;
-import com.google.common.collect.Lists;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -12,6 +13,19 @@ public class Order {
     private LocalDateTime dateTime;
     private BigDecimal totalAmount;
     private List<Product> products;
+
+    @NotBlank(message = "Имя не должно быть пустым")
+    private String name;
+
+    @NotBlank(message = "Это поле должно быть заполнено")
+    @Email(message = "Поле должно содержать правильный email")
+    private String email;
+
+    private String phone;
+
+    @NotBlank(message = "Это поле должно быть заполнено")
+    private String address;
+
 
     public Order() {
         this.products = new ArrayList<>();
@@ -49,5 +63,37 @@ public class Order {
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
