@@ -1,6 +1,7 @@
 package edu.bionic.service.impl;
 
 import edu.bionic.dao.ProductDao;
+import edu.bionic.dao.jdbc.JdbcProductDao;
 import edu.bionic.domain.Product;
 import edu.bionic.service.ProductService;
 import edu.bionic.util.exception.NotFoundException;
@@ -14,16 +15,17 @@ import java.util.stream.Collectors;
 @Service
 public class ProductServiceImpl implements ProductService {
 
-    private ProductDao productDao;
 
-    @Autowired
-    public ProductServiceImpl(ProductDao productDao) {
-        this.productDao = productDao;
+
+    private JdbcProductDao jdbcProductDao;
+
+    public ProductServiceImpl(JdbcProductDao jdbcProductDao) {
+        this.jdbcProductDao = jdbcProductDao;
     }
 
     @Override
     public List<Product> getAll() {
-        return productDao.getAll()
+        return jdbcProductDao.getAll()
                 .stream()
                 .sorted(Comparator.comparing(Product::getName))
                 .collect(Collectors.toList());
@@ -31,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product getById(int productId) {
-        return productDao.getById(productId).
+        return jdbcProductDao.getById(productId).
                 orElseThrow(() -> new NotFoundException(String.format("Продукт с id=%d не найден", productId)));
     }
 }

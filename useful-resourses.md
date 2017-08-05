@@ -44,5 +44,12 @@
    * [Spring MVC & JSP (англ.)](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/view.html#view-jsp)
    * [Spring MVC Validation (англ.)](http://codetutr.com/2013/05/28/spring-mvc-form-validation/)
    * [Spring MVC Exception Handling (англ.)](https://spring.io/blog/2013/11/01/exception-handling-in-spring-mvc)
-   
+   * [How to redirect BindingErrors after POST](https://stackoverflow.com/questions/2543797/spring-redirect-after-post-even-with-validation-errors)
+### Topic 7 - SQL, Spring JDBC
+   * [Практические задачи по SQL](http://www.sql-ex.ru/)
+   * [PostgreSQL syntax (англ.\обзорно)](https://www.postgresql.org/docs/current/static/sql-commands.html)
+   * [PostgreSQL datatypes (англ.\обзорно)](https://www.postgresql.org/docs/9.6/static/datatype.html)
+   * [HSQLDB datatypes & syntax (англ.\обзорно)](http://hsqldb.org/doc/guide/sqlgeneral-chapt.html#sgc_data_type_guide)
+   * [Простой Dao класс с Spring JDBC](https://javatalks.ru/topics/25965)
+   * [Документация по Spring JDBC (англ.\обзорно)](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/jdbc.html)
    

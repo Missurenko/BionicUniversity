@@ -20,7 +20,8 @@ public class CommentController {
     }
 
     @PostMapping
-    public String addNewComment(@ModelAttribute Comment comment) {
+    public String addNewComment(@ModelAttribute
+                                            Comment comment) {
         // validation
         if (comment.getRating() > 5) comment.setRating(5);
         else if (comment.getRating() < 1) comment.setRating(1);

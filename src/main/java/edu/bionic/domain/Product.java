@@ -10,6 +10,9 @@ public class Product {
     private Color color;
     private Integer capacity;
     private String display;
+    private String description;
+
+    public Product() { }
 
     public Product(Integer id, String name, BigDecimal price, Color color, Integer capacity, String display) {
         this.id = id;
@@ -70,5 +73,13 @@ public class Product {
 
     public String printInfo() {
         return String.format("%d. %s %s %d - %.2f", id, name, color, capacity, price);
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
