@@ -15,7 +15,7 @@ CREATE TABLE products (
 
 CREATE TABLE comments (
   id       SERIAL PRIMARY KEY,
-  id_product INTEGER,
+  id_product INTEGER NOT NULL ,
   author   TEXT NOT NULL ,
   dateTime TIMESTAMP NOT NULL ,
   text     TEXT NOT NULL ,
