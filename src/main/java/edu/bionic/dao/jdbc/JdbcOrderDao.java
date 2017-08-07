@@ -1,14 +1,17 @@
 package edu.bionic.dao.jdbc;
 
+
 import edu.bionic.dao.OrderDao;
 import edu.bionic.domain.Order;
 import edu.bionic.domain.Product;
+import edu.bionic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
+import java.sql.Timestamp;
 import java.util.List;
 
 /**
@@ -22,6 +25,8 @@ public class JdbcOrderDao implements OrderDao {
 
     private JdbcTemplate jdbcTemplate;
 
+    private ProductService productService;
+
     @Autowired
     public JdbcOrderDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
@@ -32,6 +37,8 @@ public class JdbcOrderDao implements OrderDao {
             order.setEmail(rs.getString("email"));
             order.setPhone(rs.getString("phone"));
             order.setAddress(rs.getString("address"));
+            order.setDateTime(rs.getTimestamp("date_time").toLocalDateTime());
+
             return order;
         });
     }
@@ -44,15 +51,17 @@ public class JdbcOrderDao implements OrderDao {
 
     @Override
     public void save(Order order) {
-        List<Product> productList = order.getProducts();
+
 
 
         jdbcTemplate.update("INSERT INTO orders (" +
-                        " total_amount,name,email,phone,address) VALUES (?,?,?,?,?)",
+                        " total_amount,name,email,phone,address,date_time) VALUES (?,?,?,?,?,?)",
                 order.getTotalAmount(),
                 order.getName(),
                 order.getEmail(),
                 order.getPhone(),
-                order.getAddress());
+                order.getAddress(),
+                Timestamp.valueOf(order.getDateTime()));
+
     }
 }

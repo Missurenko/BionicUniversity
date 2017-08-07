@@ -10,4 +10,6 @@ public interface ProductDao {
     List<Product> getAll();
 
     Optional<Product> getById(int productId);
+
+    List<Product> getAllProductByOrderId(int orderId);
 }

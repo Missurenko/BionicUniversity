@@ -1,11 +1,9 @@
 package edu.bionic.service.impl;
 
-import edu.bionic.dao.ProductDao;
 import edu.bionic.dao.jdbc.JdbcProductDao;
 import edu.bionic.domain.Product;
 import edu.bionic.service.ProductService;
 import edu.bionic.util.exception.NotFoundException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -14,7 +12,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-
 
 
     private JdbcProductDao jdbcProductDao;
@@ -36,4 +33,13 @@ public class ProductServiceImpl implements ProductService {
         return jdbcProductDao.getById(productId).
                 orElseThrow(() -> new NotFoundException(String.format("Продукт с id=%d не найден", productId)));
     }
+
+    @Override
+    public List<Product> getAllProductByOrderId(int orderId) {
+        return jdbcProductDao.getAllProductByOrderId(orderId)
+                .stream()
+                .sorted(Comparator.comparing(Product::getName))
+                .collect(Collectors.toList());
+    }
 }
+

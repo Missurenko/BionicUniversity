@@ -16,10 +16,12 @@
             <strong>Почта:</strong> ${order.email} <br/>
             <strong>Телефон:</strong> ${order.phone} <br/>
             <strong>Общая сумма:</strong> ${order.totalAmount} <br/>
-            <strong>Товары:</strong> <br/>
+            <strong>Товары:</strong>
             <c:forEach items="${order.products}" var="product">
                 ${product.name} ${product.color} ${product.capacity} GB <br/>
             </c:forEach>
+            <br/>
+
             <strong>Адрес доставки:</strong> ${order.address}
         </p>
     </c:forEach>

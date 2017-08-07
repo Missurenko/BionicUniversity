@@ -2,6 +2,7 @@ package edu.bionic.presentation.controller;
 
 import edu.bionic.domain.Order;
 import edu.bionic.service.OrderService;
+import edu.bionic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,9 +22,12 @@ public class OrderController {
 
     private OrderService orderService;
 
+    private ProductService productService;
+
     @Autowired
-    public OrderController(OrderService orderService) {
+    public OrderController(OrderService orderService, ProductService productService) {
         this.orderService = orderService;
+        this.productService = productService;
     }
 
     @GetMapping
@@ -56,4 +60,12 @@ public class OrderController {
     public String successCreatedOrderPage() {
         return "order/orderCreated";
     }
+
+    @PostMapping("/newOrder/delete")
+    public String deleteProductFromBacket(@ModelAttribute("currentOrder") Order newOrder,
+                                          @ModelAttribute("productIndex") Integer productIndex) {
+        orderService.deleteProductByIndex(newOrder, productIndex);
+        return "redirect:/orders/newOrder";
+    }
+
 }

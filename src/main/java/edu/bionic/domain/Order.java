@@ -20,7 +20,7 @@ public class Order {
     @NotBlank(message = "Это поле должно быть заполнено")
     @Email(message = "Поле должно содержать правильный email")
     private String email;
-
+    @NotBlank(message = "Это поле должно быть заполнено")
     private String phone;
 
     @NotBlank(message = "Это поле должно быть заполнено")
@@ -46,6 +46,7 @@ public class Order {
     }
 
     public BigDecimal getTotalAmount() {
+
         return totalAmount;
     }
 
@@ -57,12 +58,19 @@ public class Order {
         return ImmutableList.copyOf(products);
     }
 
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
+
     public void addProduct(Product product) {
         products.add(product);
     }
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+    public void removeProductByIndex(int index){
+        products.remove(index);
     }
 
     public String getName() {

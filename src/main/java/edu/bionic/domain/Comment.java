@@ -1,15 +1,20 @@
 package edu.bionic.domain;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import java.time.LocalDateTime;
 
 public class Comment {
 
     private Integer productId;
-
+    @NotBlank(message = "Имя не должно быть пустым")
     private String author;
     private LocalDateTime dateTime;
+    @NotBlank(message = "Имя не должно быть пустым")
     private String text;
     private Integer rating;
+
 
     public Comment(Integer productId, String author, LocalDateTime dateTime, String text, Integer rating) {
         this.productId = productId;

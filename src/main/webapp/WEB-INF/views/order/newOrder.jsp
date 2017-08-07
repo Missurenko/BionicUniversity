@@ -24,10 +24,16 @@
                     <td>${loop.index + 1}</td>
                     <td>${product.name} ${product.color} ${product.capacity} GB</td>
                     <td>${product.price}</td>
-                    <td><button>x</button></td>
+                    <td>
+                        <form method="post" action="<c:url value="/orders/newOrder/delete"/>">
+                            <input type="hidden" name="productIndex" value="${currentOrder.products.indexOf(product)}">
+                            <button type="submit">x</button></form>
+                    </td>
+
                 </tr>
             </c:forEach>
         </table>
+
         <strong>Общая сумма: ${currentOrder.totalAmount} USD</strong>
         <p>
             <a href="<c:url value="/products"/> "><button>Вернться к покупкам</button></a>
@@ -48,6 +54,7 @@
             <p>
                 <label for="phone">Телефон:</label>
                 <form:input path="phone" id="phone"/>
+                <form:errors path="phone" cssStyle="color: rebeccapurple"             />
             </p>
             <p>
                 <label for="address">Адрес доставки:</label> <br/>

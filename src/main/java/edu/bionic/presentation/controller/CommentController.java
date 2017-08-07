@@ -29,4 +29,5 @@ public class CommentController {
         commentService.createNew(comment);
         return "redirect:/products/" + comment.getProductId();
     }
+
 }

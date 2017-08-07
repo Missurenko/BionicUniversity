@@ -29,7 +29,8 @@ CREATE TABLE orders (
   name         TEXT           NOT NULL,
   email        TEXT           NOT NULL,
   phone        TEXT,
-  address      TEXT           NOT NULL
+  address      TEXT           NOT NULL,
+  date_time    TIMESTAMP      NOT NULL
 );
 
 CREATE TABLE orders_products (

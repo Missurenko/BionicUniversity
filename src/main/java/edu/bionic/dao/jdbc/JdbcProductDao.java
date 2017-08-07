@@ -19,6 +19,7 @@ public class JdbcProductDao implements ProductDao {
 
     private RowMapper<Product> ROW_MAPPER;
 
+
     private JdbcTemplate jdbcTemplate;
 
     @Autowired
@@ -50,5 +51,15 @@ public class JdbcProductDao implements ProductDao {
         String sql = "SELECT * FROM products WHERE id = ?";
         List<Product> product = jdbcTemplate.query(sql, new Object[]{productId}, ROW_MAPPER);
         return Optional.ofNullable(DataAccessUtils.singleResult(product));
+    }
+
+    @Override
+    public List<Product> getAllProductByOrderId(int orderId) {
+
+        String sql = "SELECT * FROM products " +
+                "INNER JOIN orders_products ON orders_products.product_id = products.id " +
+                " INNER JOIN orders ON orders.id=orders_products.order_id" +
+                " WHERE order_id=" + orderId;
+        return jdbcTemplate.query(sql, ROW_MAPPER);
     }
 }
