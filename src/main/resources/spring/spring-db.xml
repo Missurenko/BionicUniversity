@@ -28,9 +28,6 @@
         <constructor-arg ref="dataSource"/>
     </bean>
 
-    <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
-        <constructor-arg ref="dataSource"/>
-    </bean>
 
     <!-- Define transaction manager -->
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -40,5 +37,6 @@
 
     <!-- enable the configuration of transactional behavior based on annotations -->
     <tx:annotation-driven transaction-manager="txManager"/>
+    <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
 
 </beans>
