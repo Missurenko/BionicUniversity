@@ -133,7 +133,7 @@
         <!-- Database -->
         <!-- HSQL JDBC Driver -->
 
-            <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
+        <!-- https://mvnrepository.com/artifact/postgresql/postgresql -->
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>

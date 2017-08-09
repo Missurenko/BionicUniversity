@@ -9,16 +9,17 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 
 @Repository
 @Primary
+@Transactional
 public class JdbcProductDao implements ProductDao {
 
     private RowMapper<Product> ROW_MAPPER;
-
 
     private JdbcTemplate jdbcTemplate;
 
@@ -53,13 +54,9 @@ public class JdbcProductDao implements ProductDao {
         return Optional.ofNullable(DataAccessUtils.singleResult(product));
     }
 
-    @Override
-    public List<Product> getAllProductByOrderId(int orderId) {
-
-        String sql = "SELECT * FROM products " +
-                "INNER JOIN orders_products ON orders_products.product_id = products.id " +
-                " INNER JOIN orders ON orders.id=orders_products.order_id" +
-                " WHERE order_id=" + orderId;
-        return jdbcTemplate.query(sql, ROW_MAPPER);
+    List<Product> getByOrder(int orderId) {
+        String sql = "SELECT * FROM products LEFT JOIN orders_products ON products.id = orders_products.product_id " +
+                "WHERE orders_products.order_id = ?";
+        return jdbcTemplate.query(sql, new Object[] {orderId},ROW_MAPPER);
     }
 }

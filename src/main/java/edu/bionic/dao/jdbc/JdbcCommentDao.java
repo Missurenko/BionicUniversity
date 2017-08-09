@@ -2,60 +2,63 @@ package edu.bionic.dao.jdbc;
 
 import edu.bionic.dao.CommentDao;
 import edu.bionic.domain.Comment;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
-import org.springframework.jdbc.core.support.JdbcDaoSupport;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
+import javax.sql.DataSource;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-/**
- * Created by bm on 05.08.17.
- */
 @Repository
 @Primary
+@Transactional
 public class JdbcCommentDao implements CommentDao {
 
     private RowMapper<Comment> ROW_MAPPER;
 
     private JdbcTemplate jdbcTemplate;
+    private SimpleJdbcInsert commentInsert;
 
-    @Autowired
-    public JdbcCommentDao(JdbcTemplate jdbcTemplate) {
-
+    public JdbcCommentDao(JdbcTemplate jdbcTemplate, DataSource dataSource) {
         this.jdbcTemplate = jdbcTemplate;
 
         ROW_MAPPER = (rs, rowNum) -> {
             Comment comment = new Comment();
+            comment.setId(rs.getInt("id"));
+            comment.setProductId(rs.getInt("product_id"));
             comment.setAuthor(rs.getString("author"));
             comment.setDateTime(rs.getTimestamp("datetime").toLocalDateTime());
-            comment.setProductId(rs.getInt("id_product"));
             comment.setText(rs.getString("text"));
             comment.setRating(rs.getInt("rating"));
             return comment;
         };
+        commentInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("comments")
+                .usingGeneratedKeyColumns("id");
     }
 
     @Override
     public List<Comment> getByProduct(int productId) {
-        String sql = "SELECT * FROM comments WHERE id_product = " + productId;
-        return jdbcTemplate.query(sql, ROW_MAPPER);
+        String sql = "SELECT * FROM comments WHERE product_id = ?";
+        return jdbcTemplate.query(sql, new Object[]{productId},ROW_MAPPER);
     }
 
     @Override
-    public void save(Comment comment) {
-        Timestamp timestamp = Timestamp.valueOf(comment.getDateTime());
+    public Comment save(Comment comment) {
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("product_id", comment.getProductId());
+        parameters.put("author", comment.getAuthor());
+        parameters.put("datetime", comment.getDateTime());
+        parameters.put("text", comment.getText());
+        parameters.put("rating", comment.getRating());
+        Number newId = commentInsert.executeAndReturnKey(parameters);
 
-        jdbcTemplate.update("INSERT INTO comments (" +
-                        " id_product,author,datetime,text,rating) VALUES (?,?,?,?,?)",
-                comment.getProductId(),
-                comment.getAuthor(),
-                timestamp,
-                comment.getText(),
-                comment.getRating());
-
+        comment.setId(newId.intValue());
+        return comment;
     }
 }

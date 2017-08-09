@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    private Integer id;
     private LocalDateTime dateTime;
     private BigDecimal totalAmount;
     private List<Product> products;
@@ -35,6 +36,14 @@ public class Order {
         this.dateTime = dateTime;
         this.totalAmount = totalAmount;
         this.products = new ArrayList<>(products);
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public LocalDateTime getDateTime() {

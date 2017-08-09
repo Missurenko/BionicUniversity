@@ -1,67 +1,73 @@
 package edu.bionic.dao.jdbc;
 
-
 import edu.bionic.dao.OrderDao;
 import edu.bionic.domain.Order;
-import edu.bionic.domain.Product;
-import edu.bionic.service.ProductService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.sql.Timestamp;
+import javax.sql.DataSource;
 import java.util.List;
 
-/**
- * Created by bm on 05.08.17.
- */
 @Repository
 @Primary
+@Transactional
 public class JdbcOrderDao implements OrderDao {
 
     private RowMapper<Order> ROW_MAPPER;
 
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SimpleJdbcInsert orderInsert;
 
-    private ProductService productService;
+    private JdbcProductDao jdbcProductDao;
 
-    @Autowired
-    public JdbcOrderDao(JdbcTemplate jdbcTemplate) {
+    public JdbcOrderDao(JdbcTemplate jdbcTemplate,
+                        NamedParameterJdbcTemplate namedParameterJdbcTemplate,
+                        DataSource dataSource,
+                        JdbcProductDao jdbcOrderDao) {
         this.jdbcTemplate = jdbcTemplate;
-        ROW_MAPPER = ((rs, rowNum) -> {
-            Order order = new Order();
-            order.setTotalAmount(rs.getBigDecimal("total_amount"));
-            order.setName(rs.getString("name"));
-            order.setEmail(rs.getString("email"));
-            order.setPhone(rs.getString("phone"));
-            order.setAddress(rs.getString("address"));
-            order.setDateTime(rs.getTimestamp("date_time").toLocalDateTime());
+        this.jdbcProductDao = jdbcOrderDao;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 
-            return order;
-        });
+        ROW_MAPPER = BeanPropertyRowMapper.newInstance(Order.class);
+        orderInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("orders")
+                .usingGeneratedKeyColumns("id");
     }
 
     @Override
     public List<Order> getAll() {
         String sql = "SELECT * FROM orders";
-        return jdbcTemplate.query(sql, ROW_MAPPER);
+        List<Order> orders = jdbcTemplate.query(sql, ROW_MAPPER);
+        orders.forEach(order -> order.setProducts(jdbcProductDao.getByOrder(order.getId())));
+        return orders;
     }
 
+
     @Override
-    public void save(Order order) {
+    public Order save(Order order) {
+        SqlParameterSource orderParameterSource = new BeanPropertySqlParameterSource(order);
+        Number newId = orderInsert.executeAndReturnKey(orderParameterSource);
+        order.setId(newId.intValue());
 
+        String sql = "INSERT INTO orders_products (order_id, product_id) VALUES (:order_id, :product_id)";
 
+        order.getProducts().forEach(product -> {
+            MapSqlParameterSource parameterSource = new MapSqlParameterSource();
+            parameterSource.addValue("order_id", order.getId());
+            parameterSource.addValue("product_id", product.getId());
+            this.namedParameterJdbcTemplate.update(sql, parameterSource);
+        });
 
-        jdbcTemplate.update("INSERT INTO orders (" +
-                        " total_amount,name,email,phone,address,date_time) VALUES (?,?,?,?,?,?)",
-                order.getTotalAmount(),
-                order.getName(),
-                order.getEmail(),
-                order.getPhone(),
-                order.getAddress(),
-                Timestamp.valueOf(order.getDateTime()));
-
+        return order;
     }
 }
