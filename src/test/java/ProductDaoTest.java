@@ -1,7 +1,7 @@
-package edu.bionic.dao;
-
 import edu.bionic.config.Profiles;
-import edu.bionic.domain.Comment;
+import edu.bionic.dao.ProductDao;
+import edu.bionic.domain.Product;
+import testdata.ProductFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,36 +14,27 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static edu.bionic.testdata.CommentFactory.getCommentsForProduct1;
-import static edu.bionic.testdata.CommentFactory.getNewCommentForProduct1;
-
 @RunWith(SpringRunner.class)
 @ContextConfiguration("classpath:spring/spring-app.xml")
 @ActiveProfiles(Profiles.HSQLDB)
 @Sql(scripts = "classpath:db/fillDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class CommentDaoTest {
+public class ProductDaoTest {
 
     @Autowired
-    private CommentDao commentDao;
+    private ProductDao productDao;
 
     @Test
-    public void getByProduct() throws Exception {
-        List<Comment> expected = getCommentsForProduct1();
-        List<Comment> actual = commentDao.getByProduct(1);
+    public void getAll() throws Exception {
+        List<Product> expected = ProductFactory.getAllProducts();
+        List<Product> actual = productDao.getAll();
 
         Assert.assertEquals(expected.toString(), actual.toString());
     }
 
     @Test
-    public void save() throws Exception {
-        Comment newComment = getNewCommentForProduct1();
-        Comment savedComment = commentDao.save(newComment);
-        newComment.setId(savedComment.getId());
-
-        List<Comment> expected = getCommentsForProduct1();
-        expected.add(newComment);
-
-        List<Comment> actual = commentDao.getByProduct(1);
+    public void getById() throws Exception {
+        Product expected = ProductFactory.getProduct1();
+        Product actual = productDao.getById(1).get();
 
         Assert.assertEquals(expected.toString(), actual.toString());
     }

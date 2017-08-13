@@ -12,4 +12,6 @@ public interface OrderService {
     void createNewOrder(Order order);
 
     void addProductToOrder(Order order, Integer productId);
+
+    void removeProductFromOrder(Order order, int indexOfProduct);
 }

@@ -42,6 +42,8 @@
 
     <beans profile="hsqldb">
         <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
+        <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+
     </beans>
 
 </beans>

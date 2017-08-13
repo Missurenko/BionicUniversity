@@ -47,4 +47,16 @@ public class OrderServiceImpl implements OrderService {
                         .orElse(BigDecimal.ZERO)
         );
     }
+
+    @Override
+    public void removeProductFromOrder(Order order, int indexOfProduct) {
+        order.removeProduct(indexOfProduct);
+        order.setTotalAmount(
+                order.getProducts()
+                        .stream()
+                        .map(Product::getPrice)
+                        .reduce(BigDecimal::add)
+                        .orElse(BigDecimal.ZERO)
+        );
+    }
 }

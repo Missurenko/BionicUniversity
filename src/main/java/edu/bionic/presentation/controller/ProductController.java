@@ -1,5 +1,6 @@
 package edu.bionic.presentation.controller;
 
+import edu.bionic.domain.Comment;
 import edu.bionic.domain.Order;
 import edu.bionic.service.CommentService;
 import edu.bionic.service.OrderService;
@@ -36,9 +37,13 @@ public class ProductController {
     }
 
     @GetMapping("{productId}")
-    public String showProduct(Model model, @PathVariable("productId") Integer productId) {
+    public String showProduct(Model model,
+                              @PathVariable("productId") Integer productId) {
         model.addAttribute(productService.getById(productId));
         model.addAttribute("comments", commentService.getByProduct(productId));
+        if (!model.containsAttribute("newComment")) {
+            model.addAttribute("newComment", new Comment());
+        }
         model.addAttribute("dateTimeFormatter", dateTimeFormatter);
 
         return "product/product";

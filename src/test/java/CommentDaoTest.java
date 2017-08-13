@@ -1,7 +1,6 @@
-package edu.bionic.dao;
-
 import edu.bionic.config.Profiles;
-import edu.bionic.domain.Order;
+import edu.bionic.dao.CommentDao;
+import edu.bionic.domain.Comment;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,36 +13,36 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
-import static edu.bionic.testdata.OrderFactory.getAllOrders;
-import static edu.bionic.testdata.OrderFactory.getNewOrder;
+import static testdata.CommentFactory.getCommentsForProduct1;
+import static testdata.CommentFactory.getNewCommentForProduct1;
 
 @RunWith(SpringRunner.class)
 @ContextConfiguration("classpath:spring/spring-app.xml")
 @ActiveProfiles(Profiles.HSQLDB)
 @Sql(scripts = "classpath:db/fillDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class OrderDaoTest {
+public class CommentDaoTest {
 
     @Autowired
-    private OrderDao orderDao;
+    private CommentDao commentDao;
 
     @Test
-    public void getAll() throws Exception {
-        List<Order> expected = getAllOrders();
-        List<Order> actual = orderDao.getAll();
+    public void getByProduct() throws Exception {
+        List<Comment> expected = getCommentsForProduct1();
+        List<Comment> actual = commentDao.getByProduct(1);
 
         Assert.assertEquals(expected.toString(), actual.toString());
     }
 
     @Test
     public void save() throws Exception {
-        Order newOrder = getNewOrder();
-        Order savedOrder = orderDao.save(newOrder);
-        newOrder.setId(savedOrder.getId());
+        Comment newComment = getNewCommentForProduct1();
+        Comment savedComment = commentDao.save(newComment);
+        newComment.setId(savedComment.getId());
 
-        List<Order> expected = getAllOrders();
-        expected.add(newOrder);
+        List<Comment> expected = getCommentsForProduct1();
+        expected.add(newComment);
 
-        List<Order> actual = orderDao.getAll();
+        List<Comment> actual = commentDao.getByProduct(1);
 
         Assert.assertEquals(expected.toString(), actual.toString());
     }

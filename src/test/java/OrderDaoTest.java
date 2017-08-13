@@ -1,8 +1,6 @@
-package edu.bionic.dao;
-
 import edu.bionic.config.Profiles;
-import edu.bionic.domain.Product;
-import edu.bionic.testdata.ProductFactory;
+import edu.bionic.dao.OrderDao;
+import edu.bionic.domain.Order;
 import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -15,27 +13,36 @@ import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
+import static testdata.OrderFactory.getAllOrders;
+import static testdata.OrderFactory.getNewOrder;
+
 @RunWith(SpringRunner.class)
 @ContextConfiguration("classpath:spring/spring-app.xml")
 @ActiveProfiles(Profiles.HSQLDB)
 @Sql(scripts = "classpath:db/fillDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class ProductDaoTest {
+public class OrderDaoTest {
 
     @Autowired
-    private ProductDao productDao;
+    private OrderDao orderDao;
 
     @Test
     public void getAll() throws Exception {
-        List<Product> expected = ProductFactory.getAllProducts();
-        List<Product> actual = productDao.getAll();
+        List<Order> expected = getAllOrders();
+        List<Order> actual = orderDao.getAll();
 
         Assert.assertEquals(expected.toString(), actual.toString());
     }
 
     @Test
-    public void getById() throws Exception {
-        Product expected = ProductFactory.getProduct1();
-        Product actual = productDao.getById(1).get();
+    public void save() throws Exception {
+        Order newOrder = getNewOrder();
+        Order savedOrder = orderDao.save(newOrder);
+        newOrder.setId(savedOrder.getId());
+
+        List<Order> expected = getAllOrders();
+        expected.add(newOrder);
+
+        List<Order> actual = orderDao.getAll();
 
         Assert.assertEquals(expected.toString(), actual.toString());
     }
