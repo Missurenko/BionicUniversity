@@ -18,7 +18,7 @@
         <c:forEach items="${products}" var="product">
             <jsp:useBean id="product" type="edu.bionic.domain.Product"/>
             <%--<li><c:out value="${product.printInfo()}"/></li>--%>
-            <li>${product.printInfo()}</li>
+            <li><a href="<c:url value="products/${product.id}"/>">${product.printInfo()}</a></li>
         </c:forEach>
     </ul>
 </body>

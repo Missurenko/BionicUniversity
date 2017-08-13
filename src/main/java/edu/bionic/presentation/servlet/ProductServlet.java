@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/products")
+//@WebServlet("/products")
 public class ProductServlet extends HttpServlet {
 
     private ProductService productService;
@@ -44,6 +44,6 @@ public class ProductServlet extends HttpServlet {
 //            }
 //        });
         req.setAttribute("products", productService.getAll());
-        req.getRequestDispatcher("/WEB-INF/views/products.jsp").forward(req, resp);
+        req.getRequestDispatcher("/WEB-INF/views/product-list.jsp").forward(req, resp);
     }
 }
