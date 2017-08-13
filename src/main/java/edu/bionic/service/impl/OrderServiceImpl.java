@@ -49,14 +49,14 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void deleteProductByIndex(Order order, Integer productIndex) {
-        order.removeProductByIndex(productIndex);
+    public void removeProductFromOrder(Order order, int indexOfProduct) {
+        order.removeProduct(indexOfProduct);
         order.setTotalAmount(
                 order.getProducts()
                         .stream()
                         .map(Product::getPrice)
                         .reduce(BigDecimal::add)
-                        .orElse(BigDecimal.ZERO));
+                        .orElse(BigDecimal.ZERO)
+        );
     }
-
 }

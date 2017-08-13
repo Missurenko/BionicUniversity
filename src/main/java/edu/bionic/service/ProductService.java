@@ -9,6 +9,4 @@ public interface ProductService {
     List<Product> getAll();
 
     Product getById(int productId);
-
-    List<Product> getAllProductByOrderId(int orderId);
 }

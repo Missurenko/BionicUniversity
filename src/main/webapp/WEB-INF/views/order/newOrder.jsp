@@ -6,64 +6,64 @@
     <title>iShop | Оформление заказа</title>
 </head>
 <body>
-    <c:if test="${currentOrder.products.size() == 0}">
-        На данный момент товаров в корзине нет
-    </c:if>
+<c:if test="${currentOrder.products.size() == 0}">
+    На данный момент товаров в корзине нет
+</c:if>
 
-    <c:if test="${currentOrder.products.size() > 0}" >
-        <h1>Товары в корзине</h1>
-        <table border="1" cellpadding="5">
+<c:if test="${currentOrder.products.size() > 0}">
+    <h1>Товары в корзине</h1>
+    <table border="1" cellpadding="5">
+        <tr>
+            <th>№</th>
+            <th>Товар</th>
+            <th>Цена</th>
+            <th></th>
+        </tr>
+        <c:forEach items="${currentOrder.products}" var="product" varStatus="loop">
             <tr>
-                <th>№</th>
-                <th>Товар</th>
-                <th>Цена</th>
-                <th></th>
+                <td>${loop.index + 1}</td>
+                <td>${product.name} ${product.color} ${product.capacity} GB</td>
+                <td>${product.price}</td>
+                <td>
+                    <form method="post"
+                          action="<c:url value="/orders/newOrder/removeProduct?index=${loop.index}"/> ">
+                        <button type="submit">x</button>
+                    </form>
+                </td>
             </tr>
-            <c:forEach items="${currentOrder.products}" var="product" varStatus="loop">
-                <tr>
-                    <td>${loop.index + 1}</td>
-                    <td>${product.name} ${product.color} ${product.capacity} GB</td>
-                    <td>${product.price}</td>
-                    <td>
-                        <form method="post" action="<c:url value="/orders/newOrder/delete"/>">
-                            <input type="hidden" name="productIndex" value="${currentOrder.products.indexOf(product)}">
-                            <button type="submit">x</button></form>
-                    </td>
+        </c:forEach>
+    </table>
+    <strong>Общая сумма: ${currentOrder.totalAmount} USD</strong>
+    <p>
+        <a href="<c:url value="/products"/> ">
+            <button>Вернться к покупкам</button>
+        </a>
+    </p>
 
-                </tr>
-            </c:forEach>
-        </table>
-
-        <strong>Общая сумма: ${currentOrder.totalAmount} USD</strong>
+    <h2>Оформление заказа: </h2>
+    <form:form modelAttribute="currentOrder">
         <p>
-            <a href="<c:url value="/products"/> "><button>Вернться к покупкам</button></a>
+            <label for="name">Имя:</label>
+            <form:input path="name"/>
+            <form:errors path="name" cssStyle="color: red"/>
         </p>
-
-        <h2>Оформление заказа: </h2>
-        <form:form modelAttribute="currentOrder">
-            <p>
-                <label for="name">Имя:</label>
-                <form:input path="name"/>
-                <form:errors path="name" cssStyle="color: red"/>
-            </p>
-            <p>
-                <label for="email">Email:</label>
-                <form:input path="email"/>
-                <form:errors path="email" cssStyle="color: red"/>
-            </p>
-            <p>
-                <label for="phone">Телефон:</label>
-                <form:input path="phone" id="phone"/>
-                <form:errors path="phone" cssStyle="color: rebeccapurple"             />
-            </p>
-            <p>
-                <label for="address">Адрес доставки:</label> <br/>
-                <form:textarea path="address" rows="10" cols="30"/> <br/>
-                <form:errors path="address" cssStyle="color: red"/>
-            </p>
-            <button type="submit">Отправить заказ</button>
-        </form:form>
-    </c:if>
+        <p>
+            <label for="email">Email:</label>
+            <form:input path="email"/>
+            <form:errors path="email" cssStyle="color: red"/>
+        </p>
+        <p>
+            <label for="phone">Телефон:</label>
+            <form:input path="phone" id="phone"/>
+        </p>
+        <p>
+            <label for="address">Адрес доставки:</label> <br/>
+            <form:textarea path="address" rows="10" cols="30"/> <br/>
+            <form:errors path="address" cssStyle="color: red"/>
+        </p>
+        <button type="submit">Отправить заказ</button>
+    </form:form>
+</c:if>
 
 </body>
 </html>

@@ -13,6 +13,5 @@ public interface OrderService {
 
     void addProductToOrder(Order order, Integer productId);
 
-
-    void deleteProductByIndex(Order order, Integer productIndex);
+    void removeProductFromOrder(Order order, int indexOfProduct);
 }

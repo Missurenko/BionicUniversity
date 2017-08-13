@@ -1,10 +1,10 @@
 package edu.bionic.service.impl;
 
 import edu.bionic.dao.CommentDao;
-import edu.bionic.dao.jdbc.JdbcCommentDao;
 import edu.bionic.domain.Comment;
 import edu.bionic.service.CommentService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -13,21 +13,21 @@ import java.util.List;
 @Service
 public class CommentServiceImpl implements CommentService {
 
-    private JdbcCommentDao jdbcCommentDao;
+    private CommentDao commentDao;
 
     @Autowired
-    public CommentServiceImpl(JdbcCommentDao jdbcCommentDao) {
-        this.jdbcCommentDao = jdbcCommentDao;
+    public CommentServiceImpl(CommentDao commentDao) {
+        this.commentDao = commentDao;
     }
 
     @Override
     public List<Comment> getByProduct(int productId) {
-        return jdbcCommentDao.getByProduct(productId);
+        return commentDao.getByProduct(productId);
     }
 
     @Override
     public void createNew(Comment comment) {
         comment.setDateTime(LocalDateTime.now());
-        jdbcCommentDao.save(comment);
+        commentDao.save(comment);
     }
 }

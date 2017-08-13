@@ -24,10 +24,10 @@
     <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
+
     <bean id="namedJdbcTemplate" class="org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate">
         <constructor-arg ref="dataSource"/>
     </bean>
-
 
     <!-- Define transaction manager -->
     <bean id="txManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
@@ -36,7 +36,16 @@
     </bean>
 
     <!-- enable the configuration of transactional behavior based on annotations -->
-    <tx:annotation-driven transaction-manager="txManager"/>
     <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+
+    <beans profile="postgres">
+        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+    </beans>
+
+    <beans profile="hsqldb">
+        <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
+        <tx:annotation-driven transaction-manager="txManager" proxy-target-class="true"/>
+
+    </beans>
 
 </beans>

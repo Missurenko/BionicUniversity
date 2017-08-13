@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
@@ -37,33 +38,35 @@
             </p>
         </c:forEach>
         <h4>Оставить свой отзыв</h4>
-        <form method="post" action="<c:url value="/comments"/>" >
+        <form:form modelAttribute="newComment" method="post" servletRelativeAction="/comments/" >
             <p>
                 <label for="name">Имя:</label>
-                <input type="text" id="name" name="author"/>
+                <form:input type="text" id="name" path="author"/>
+                <form:errors path="author" cssStyle="color:red;"/>
             </p>
             <p>
                 <label for="comment">Комментарий:</label>
                 <br/>
-                <textarea id="comment" name="text" rows="10" cols="30"></textarea>
+                <form:errors path="text" cssStyle="color:red;"/> <br/>
+                <form:textarea id="comment" path="text" rows="10" cols="30"/>
             </p>
             <p>
                 <label>Выставить оценку:</label> <br/>
                 <label for="radio1">1</label>
-                <input type="radio" id="radio1" name="rating" value="1">
+                <form:radiobutton id="radio1" path="rating" value="1"/>
                 <label for="radio2">2</label>
-                <input type="radio" id="radio2" name="rating" value="2">
+                <form:radiobutton id="radio2" path="rating" value="2"/>
                 <label for="radio3">3</label>
-                <input type="radio" id="radio3" name="rating" value="3">
+                <form:radiobutton id="radio3" path="rating" value="3"/>
                 <label for="radio4">4</label>
-                <input type="radio" id="radio4" name="rating" value="4">
+                <form:radiobutton id="radio4" path="rating" value="4"/>
                 <label for="radio5">5</label>
-                <input type="radio" id="radio5" name="rating" value="5" checked>
+                <form:radiobutton id="radio5" path="rating" value="5" checked="checked"/>
             </p>
 
-            <input type="hidden" name="productId" value="${product.id}">
+            <form:hidden path="productId" value="${product.id}"/>
             <button type="submit">Отправить</button>
-        </form>
+        </form:form>
     </div>
 </body>
 </html>
