@@ -7,6 +7,8 @@ import edu.bionic.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,7 +40,10 @@ public class OrderConsoleController {
     }
 
     public void saveOrder() {
-        orderService.createNewOrder(basket);
+        Order newOrder = new Order(LocalDateTime.now(),
+                basket.stream().map(Product::getPrice).reduce(BigDecimal::add).orElse(BigDecimal.ZERO),
+                basket);
+        orderService.createNewOrder(newOrder);
         basket = new ArrayList<>();
     }
 
