@@ -4,13 +4,14 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
-    <servlet>
-        <servlet-name>productServlet</servlet-name>
-        <servlet-class>edu.bionic.presentation.servlet.HelloServlet</servlet-class>
-    </servlet>
+    <!-- Location of spring config files -->
+    <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>classpath:spring/spring-app.xml</param-value>
+    </context-param>
 
-    <servlet-mapping>
-        <servlet-name>productServlet</servlet-name>
-        <url-pattern>/hello</url-pattern>
-    </servlet-mapping>
+    <!-- Bootstrap the root application context using ContextLoaderListener -->
+    <listener>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
 </web-app>
