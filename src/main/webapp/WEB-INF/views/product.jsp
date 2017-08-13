@@ -5,6 +5,11 @@
     <title>iShop - ${product.name}</title>
 </head>
 <body>
+    <c:if test="${basket.products.size() > 0}">
+        <p><strong><i>Количество товаров в корзине: ${basket.products.size()}.
+            Общая сумма ${basket.totalAmount}</i></strong> </p>
+        <hr/>
+    </c:if>
     <h2>${product.name}</h2>
     <h3>Цена: ${product.price} USD</h3>
     <div>
@@ -15,6 +20,7 @@
             Память: ${product.capacity} GB<br/>
         </p>
         <form method="post" action="<c:url value="/products/${product.id}/addToBasket"/>">
+            <a href="<c:url value="/products"/>"><button type="button">Вернуться</button></a>
             <button type="submit">Добавить в корзину</button>
         </form>
     </div>
@@ -41,14 +47,17 @@
                 <textarea id="comment" name="text" rows="10" cols="30"></textarea>
             </p>
             <p>
-                <label for="rating">Выставить оценку:</label>
-                <select id="rating" name="rating">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option selected>5</option>
-                </select>
+                <label>Выставить оценку:</label> <br/>
+                <label for="radio1">1</label>
+                <input type="radio" id="radio1" name="rating" value="1">
+                <label for="radio2">2</label>
+                <input type="radio" id="radio2" name="rating" value="2">
+                <label for="radio3">3</label>
+                <input type="radio" id="radio3" name="rating" value="3">
+                <label for="radio4">4</label>
+                <input type="radio" id="radio4" name="rating" value="4">
+                <label for="radio5">5</label>
+                <input type="radio" id="radio5" name="rating" value="5" checked>
             </p>
 
             <input type="hidden" name="productId" value="${product.id}">

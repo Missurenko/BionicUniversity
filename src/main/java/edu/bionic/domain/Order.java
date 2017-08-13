@@ -13,6 +13,10 @@ public class Order {
     private BigDecimal totalAmount;
     private List<Product> products;
 
+    public Order() {
+        this.products = new ArrayList<>();
+    }
+
     public Order(LocalDateTime dateTime, BigDecimal totalAmount, List<Product> products) {
         this.dateTime = dateTime;
         this.totalAmount = totalAmount;

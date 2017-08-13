@@ -44,4 +44,13 @@ public class ProductController {
         return "product";
     }
 
+    @PostMapping("{productId}/addToBasket")
+    public String addToBasket(@PathVariable("productId") Integer productId,
+                              @SessionAttribute("basket") Order currentOrder) {
+
+        orderService.addProductToOrder(currentOrder, productId);
+
+        return "redirect:/products/" + productId;
+    }
+
 }
