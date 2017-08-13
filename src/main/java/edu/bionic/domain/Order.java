@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Order {
+    private Integer id;
     private LocalDateTime dateTime;
     private BigDecimal totalAmount;
     private List<Product> products;
@@ -37,6 +38,59 @@ public class Order {
         this.products = new ArrayList<>(products);
     }
 
+    public Order(Integer id, LocalDateTime dateTime, BigDecimal totalAmount, List<Product> products, String name, String email, String phone, String address) {
+        this.id = id;
+        this.dateTime = dateTime;
+        this.totalAmount = totalAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
+        this.products = products;
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Order order = (Order) o;
+
+        if (id != null ? !id.equals(order.id) : order.id != null) return false;
+        if (dateTime != null ? !dateTime.equals(order.dateTime) : order.dateTime != null) return false;
+        return totalAmount != null ? totalAmount.equals(order.totalAmount) : order.totalAmount == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = id != null ? id.hashCode() : 0;
+        result = 31 * result + (dateTime != null ? dateTime.hashCode() : 0);
+        result = 31 * result + (totalAmount != null ? totalAmount.hashCode() : 0);
+        return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", dateTime=" + dateTime +
+                ", totalAmount=" + totalAmount +
+                ", products=" + products +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", phone='" + phone + '\'' +
+                ", address='" + address + '\'' +
+                '}';
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public LocalDateTime getDateTime() {
         return dateTime;
     }
@@ -50,11 +104,15 @@ public class Order {
     }
 
     public void setTotalAmount(BigDecimal totalAmount) {
-        this.totalAmount = totalAmount;
+        this.totalAmount = totalAmount.setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
     public List<Product> getProducts() {
         return ImmutableList.copyOf(products);
+    }
+
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public void addProduct(Product product) {
@@ -63,6 +121,10 @@ public class Order {
 
     public void removeProduct(Product product) {
         products.remove(product);
+    }
+
+    public void removeProduct(int index) {
+        products.remove(index);
     }
 
     public String getName() {
