@@ -30,10 +30,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public void createNewOrder(List<Product> products) {
-        Order order = new Order(LocalDateTime.now(),
-                products.stream().map(Product::getPrice).reduce(BigDecimal::add).orElse(BigDecimal.ZERO),
-                products);
+    public void createNewOrder(Order order) {
+        order.setDateTime(LocalDateTime.now());
         orderDao.save(order);
     }
 
