@@ -9,9 +9,16 @@ import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.sql.DataSource;
+import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,15 +27,23 @@ import java.util.Optional;
 @Transactional
 public class JdbcProductDao implements ProductDao {
 
-    private RowMapper<Product> ROW_MAPPER;
+    private RowMapper<Product> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Product.class);
 
     private JdbcTemplate jdbcTemplate;
+    private NamedParameterJdbcTemplate namedParameterJdbcTemplate;
+    private SimpleJdbcInsert productInsert;
+
 
     @Autowired
-    public JdbcProductDao(JdbcTemplate jdbcTemplate) {
+    public JdbcProductDao(JdbcTemplate jdbcTemplate,
+                          NamedParameterJdbcTemplate namedParameterJdbcTemplate,
+                          DataSource dataSource) {
         this.jdbcTemplate = jdbcTemplate;
+        this.namedParameterJdbcTemplate = namedParameterJdbcTemplate;
 
-        ROW_MAPPER = BeanPropertyRowMapper.newInstance(Product.class);
+        productInsert = new SimpleJdbcInsert(dataSource)
+                .withTableName("products")
+                .usingGeneratedKeyColumns("id");
     }
 
 
@@ -43,6 +58,33 @@ public class JdbcProductDao implements ProductDao {
         String sql = "SELECT * FROM products WHERE id = ?";
         List<Product> product = jdbcTemplate.query(sql, new Object[]{productId}, ROW_MAPPER);
         return Optional.ofNullable(DataAccessUtils.singleResult(product));
+    }
+
+    @Override
+    public Product save(Product product) {
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("id", product.getId())
+                .addValue("name", product.getName())
+                .addValue("price", product.getPrice())
+                .addValue("color", product.getColor().ordinal())
+                .addValue("capacity", product.getCapacity())
+                .addValue("display", product.getDisplay())
+                .addValue("description", product.getDescription());
+
+        if (product.getId() == null) {
+            Number id = productInsert.executeAndReturnKey(parameterSource);
+            product.setId(id.intValue());
+        } else {
+            String sql = "UPDATE products SET name=:name, price=:price, color=:color, capacity=:capacity, " +
+                    "display=:display, description=:description WHERE id=:id";
+            namedParameterJdbcTemplate.update(sql, parameterSource);
+        }
+        return product;
+    }
+
+    @Override
+    public boolean delete(int productId) {
+        return jdbcTemplate.update("DELETE FROM products WHERE id=?", productId) != 0;
     }
 
     List<Product> getByOrder(int orderId) {

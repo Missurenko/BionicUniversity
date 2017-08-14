@@ -1,26 +1,18 @@
 import edu.bionic.config.Profiles;
+import edu.bionic.dao.BaseDaoTest;
 import edu.bionic.dao.CommentDao;
 import edu.bionic.domain.Comment;
 import org.junit.Assert;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.jdbc.Sql;
-import org.springframework.test.context.jdbc.SqlConfig;
-import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
 
 import static testdata.CommentFactory.getCommentsForProduct1;
 import static testdata.CommentFactory.getNewCommentForProduct1;
 
-@RunWith(SpringRunner.class)
-@ContextConfiguration("classpath:spring/spring-app.xml")
-@ActiveProfiles(Profiles.HSQLDB)
-@Sql(scripts = "classpath:db/fillDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-public class CommentDaoTest {
+
+public class CommentDaoTest extends BaseDaoTest {
 
     @Autowired
     private CommentDao commentDao;

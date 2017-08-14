@@ -24,6 +24,16 @@ public class ProductDaoMock implements ProductDao {
         return productStorage.stream().filter(product -> product.getId() == productId).findAny();
     }
 
+    @Override
+    public Product save(Product product) {
+        return null;
+    }
+
+    @Override
+    public boolean delete(int productId) {
+        return false;
+    }
+
     public void initProductStorage() {
         productStorage = new ArrayList<>();
 

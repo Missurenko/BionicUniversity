@@ -34,4 +34,19 @@ public class ProductServiceImpl implements ProductService {
         return productDao.getById(productId).
                 orElseThrow(() -> new NotFoundException(String.format("Продукт с id=%d не найден", productId)));
     }
+
+    @Override
+    public Product create(Product product) {
+        return productDao.save(product);
+    }
+
+    @Override
+    public void update(Product product) {
+        productDao.save(product);
+    }
+
+    @Override
+    public void delete(Integer productId) {
+        productDao.delete(productId);
+    }
 }

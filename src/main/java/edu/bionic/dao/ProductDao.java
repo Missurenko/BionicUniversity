@@ -10,4 +10,8 @@ public interface ProductDao {
     List<Product> getAll();
 
     Optional<Product> getById(int productId);
+
+    Product save(Product product);
+
+    boolean delete(int productId);
 }

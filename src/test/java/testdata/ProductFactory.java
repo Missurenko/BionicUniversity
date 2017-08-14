@@ -91,4 +91,28 @@ public class ProductFactory {
                 getProduct6()
         );
     }
+
+    public static Product newProduct() {
+        return new Product(
+                null,
+                "iPhone 8",
+                BigDecimal.valueOf(900),
+                Color.WHITE,
+                512,
+                "6,0 inch",
+                null
+        );
+    }
+
+    public static Product getProduct2Updated() {
+        return new Product(
+                2,
+                "iPhone 8",
+                BigDecimal.valueOf(900),
+                Color.BLACK,
+                512,
+                "6,0 inch",
+                null
+        );
+    }
 }
