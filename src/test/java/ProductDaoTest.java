@@ -23,6 +23,7 @@ public class ProductDaoTest extends BaseDaoTest {
         Assert.assertEquals(expected.toString(), actual.toString());
     }
 
+
     @Test
     public void getById() throws Exception {
         Product expected = ProductFactory.getProduct1();

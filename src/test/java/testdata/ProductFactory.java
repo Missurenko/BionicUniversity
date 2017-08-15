@@ -12,8 +12,8 @@ public class ProductFactory {
     public static Product getProduct1() {
         return new Product(
                 1,
-                "iPhone 7",
-                BigDecimal.valueOf(700),
+                "iPhone 6",
+                BigDecimal.valueOf(650),
                 Color.BLACK,
                 64,
                 "4,7 inch",
@@ -36,8 +36,8 @@ public class ProductFactory {
     public static Product getProduct3() {
         return new Product(
                 3,
-                "iPhone 7",
-                BigDecimal.valueOf(700),
+                "iPhone 8",
+                BigDecimal.valueOf(750),
                 Color.GRAY,
                 256,
                 "4,7 inch",
@@ -48,8 +48,8 @@ public class ProductFactory {
     public static Product getProduct4() {
         return new Product(
                 4,
-                "iPhone 7 Plus",
-                BigDecimal.valueOf(800),
+                "iPhone 6 Plus",
+                BigDecimal.valueOf(700),
                 Color.BLACK,
                 256,
                 "5,5 inch",
@@ -72,8 +72,8 @@ public class ProductFactory {
     public static Product getProduct6() {
         return new Product(
                 6,
-                "iPhone 7 Plus",
-                BigDecimal.valueOf(800),
+                "iPhone 8 Plus",
+                BigDecimal.valueOf(900),
                 Color.WHITE,
                 128,
                 "5,5 inch",

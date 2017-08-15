@@ -14,6 +14,7 @@ import javax.validation.Valid;
 @RequestMapping("admin/products")
 public class AdminProductController {
 
+    private final int PAGE_SIZE = 5;
     private ProductService productService;
 
     public AdminProductController(ProductService productService) {
@@ -22,7 +23,7 @@ public class AdminProductController {
 
     @GetMapping
     public String showProducts(Model model) {
-        model.addAttribute("products",  productService.getAll());
+        model.addAttribute("products", productService.getAll());
         return "admin/product-list";
     }
 
@@ -37,7 +38,7 @@ public class AdminProductController {
                               BindingResult bindingResult,
                               @PathVariable("productId") Integer productId,
                               RedirectAttributes redirectAttributes) {
-        if  (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             return "admin/product-edit";
         }
         product.setId(productId);
@@ -57,7 +58,7 @@ public class AdminProductController {
     public String editProduct(@Valid @ModelAttribute Product product,
                               BindingResult bindingResult,
                               Model model) {
-        if  (bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("isNew", true);
             return "admin/product-edit";
         }

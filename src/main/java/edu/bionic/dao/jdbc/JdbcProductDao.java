@@ -16,8 +16,10 @@ import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.StringUtils;
 
 import javax.sql.DataSource;
+import java.math.BigDecimal;
 import java.sql.Types;
 import java.util.List;
 import java.util.Optional;
@@ -46,11 +48,57 @@ public class JdbcProductDao implements ProductDao {
                 .usingGeneratedKeyColumns("id");
     }
 
-
     @Override
     public List<Product> getAll() {
         String sql = "SELECT * FROM products";
         return jdbcTemplate.query(sql, ROW_MAPPER);
+    }
+
+    @Override
+    public List<Product> getAllSortedByName(String name, BigDecimal min, BigDecimal max, boolean desc, int offset, int limit) {
+        String sql = "SELECT * FROM products WHERE name LIKE :name " +
+                (min == null ? "" : "AND price >= :min ") +
+                (max == null ? "" : "AND price <= :max ") +
+                "ORDER BY name " + (desc ? "DESC " : "ASC ") +
+                "OFFSET :offset LIMIT :limit";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("name", StringUtils.isEmpty(name) ? "%" : "%" + name + "%" )
+                .addValue("max", max)
+                .addValue("min", min)
+                .addValue("offset", offset)
+                .addValue("limit", limit);
+
+        return namedParameterJdbcTemplate.query(sql, parameterSource, ROW_MAPPER);
+    }
+
+    @Override
+    public List<Product> getAllSortedByPrice(String name, BigDecimal min, BigDecimal max, boolean desc, int offset, int limit) {
+        String sql = "SELECT * FROM products WHERE name LIKE :name " +
+                (min == null ? "" : "AND price >= :min ") +
+                (max == null ? "" : "AND price <= :max ") +
+                "ORDER BY price " + (desc ? "DESC " : "ASC ") +
+                "OFFSET :offset LIMIT :limit";
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("name", StringUtils.isEmpty(name) ? "%" : "%" + name + "%" )
+                .addValue("max", max)
+                .addValue("min", min)
+                .addValue("offset", offset)
+                .addValue("limit", limit);
+
+        return namedParameterJdbcTemplate.query(sql, parameterSource, ROW_MAPPER);
+    }
+
+    @Override
+    public int getCount(String name, BigDecimal min, BigDecimal max) {
+        String sql = "SELECT COUNT(*) FROM products WHERE name LIKE :name " +
+                (min == null ? "" : "AND price >= :min ") +
+                (max == null ? "" : "AND price <= :max ");
+        MapSqlParameterSource parameterSource = new MapSqlParameterSource()
+                .addValue("name", StringUtils.isEmpty(name) ? "%" : "%" + name + "%" )
+                .addValue("max", max)
+                .addValue("min", min);
+
+        return namedParameterJdbcTemplate.queryForObject(sql, parameterSource, Integer.class);
     }
 
     @Override

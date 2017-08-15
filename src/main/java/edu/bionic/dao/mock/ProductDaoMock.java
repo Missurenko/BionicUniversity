@@ -20,6 +20,21 @@ public class ProductDaoMock implements ProductDao {
     }
 
     @Override
+    public List<Product> getAllSortedByName(String name, BigDecimal min, BigDecimal max, boolean desc, int offset, int limit) {
+        return null;
+    }
+
+    @Override
+    public List<Product> getAllSortedByPrice(String name, BigDecimal min, BigDecimal max, boolean desc, int offset, int limit) {
+        return null;
+    }
+
+    @Override
+    public int getCount(String name, BigDecimal min, BigDecimal max) {
+        return productStorage.size();
+    }
+
+    @Override
     public Optional<Product> getById(int productId) {
         return productStorage.stream().filter(product -> product.getId() == productId).findAny();
     }
