@@ -107,7 +107,7 @@ public class JdbcProductDao implements ProductDao {
         List<Product> product = jdbcTemplate.query(sql, new Object[]{productId}, ROW_MAPPER);
         return Optional.ofNullable(DataAccessUtils.singleResult(product));
     }
-
+//ss
     @Override
     public Product save(Product product) {
         MapSqlParameterSource parameterSource = new MapSqlParameterSource()
