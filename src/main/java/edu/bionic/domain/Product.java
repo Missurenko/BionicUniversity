@@ -1,18 +1,30 @@
 package edu.bionic.domain;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
 
 public class Product {
 
     private Integer id;
+    @NotBlank(message = "Обязательное поле")
     private String name;
+    @NotNull(message = "Обязательное поле")
+    @Min(value = 0, message = "Цена должна быть больше 0")
     private BigDecimal price;
+    @NotNull(message = "Обязательное поле")
     private Color color;
+    @NotNull(message = "Обязательное поле")
+    @Min(value = 0, message = "Память должна быть больше 0")
     private Integer capacity;
+    @NotBlank(message = "Обязательное поле")
     private String display;
     private String description;
 
-    public Product() { }
+    public Product() {
+    }
 
     public Product(Integer id, String name, BigDecimal price, Color color, Integer capacity, String display, String description) {
         this.id = id;

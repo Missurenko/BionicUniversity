@@ -7,17 +7,17 @@ DELETE FROM products;
 ALTER SEQUENCE products_id_seq RESTART WITH 1;
 
 INSERT INTO products (name, price, color, capacity, display, description)
-VALUES ('iPhone 7', 700, 0, 64, '4,7 inch', NULL);
+VALUES ('iPhone 6', 650, 0, 64, '4,7 inch', NULL);
 INSERT INTO products (name, price, color, capacity, display, description)
 VALUES ('iPhone 7', 700, 1, 128, '4,7 inch', NULL);
 INSERT INTO products (name, price, color, capacity, display, description)
-VALUES ('iPhone 7', 700, 2, 256, '4,7 inch', NULL);
+VALUES ('iPhone 8', 750, 2, 256, '4,7 inch', NULL);
 INSERT INTO products (name, price, color, capacity, display, description)
-VALUES ('iPhone 7 Plus', 800, 0, 256, '5,5 inch', NULL);
+VALUES ('iPhone 6 Plus', 700, 0, 256, '5,5 inch', NULL);
 INSERT INTO products (name, price, color, capacity, display, description)
 VALUES ('iPhone 7 Plus', 800, 2, 64, '5,5 inch', NULL);
 INSERT INTO products (name, price, color, capacity, display, description)
-VALUES ('iPhone 7 Plus', 800, 1, 128, '5,5 inch', NULL);
+VALUES ('iPhone 8 Plus', 900, 1, 128, '5,5 inch', NULL);
 
 INSERT INTO orders (total_amount, datetime, name, email, phone, address)
 VALUES (1500, '2017-06-01 14:00:00', 'Олег', 'oleg@gmail.com', '095664356273', 'ул. Дорогожицкая, 1');

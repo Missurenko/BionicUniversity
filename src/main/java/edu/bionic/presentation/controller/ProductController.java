@@ -2,6 +2,7 @@ package edu.bionic.presentation.controller;
 
 import edu.bionic.domain.Comment;
 import edu.bionic.domain.Order;
+import edu.bionic.domain.ProductSort;
 import edu.bionic.service.CommentService;
 import edu.bionic.service.OrderService;
 import edu.bionic.service.ProductService;
@@ -10,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.time.format.DateTimeFormatter;
 
 @Controller
@@ -18,6 +20,7 @@ import java.time.format.DateTimeFormatter;
 public class ProductController {
 
     private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("d-MM-yyyy HH:mm");
+    private final int PAGE_SIZE = 5;
 
     private ProductService productService;
     private CommentService commentService;
@@ -31,8 +34,18 @@ public class ProductController {
     }
 
     @GetMapping
-    public String showProducts(Model model) {
-        model.addAttribute("products",  productService.getAll());
+    public String showProducts(Model model,
+                               @RequestParam(value = "name", required = false) String name,
+                               @RequestParam(value = "min", required = false) BigDecimal min,
+                               @RequestParam(value = "max", required = false) BigDecimal max,
+                               @RequestParam(value = "sort", required = false) ProductSort sort,
+                               @RequestParam(value = "page", defaultValue = "1") int page) {
+        int offset = (page - 1) * PAGE_SIZE;
+        int limit = PAGE_SIZE;
+        if (sort == null) sort = ProductSort.NAME_ASC;
+        model.addAttribute("products", productService.getAll(name, min, max, sort, offset, limit));
+        model.addAttribute("productCount", productService.getCount(name, min, max));
+        model.addAttribute("pageSize", PAGE_SIZE);
         return "product/product-list";
     }
 
