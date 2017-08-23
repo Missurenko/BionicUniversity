@@ -2,6 +2,7 @@ package edu.bionic.presentation.controller;
 
 import edu.bionic.domain.User;
 import edu.bionic.service.UserService;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,8 +26,20 @@ public class RootController {
         return "index";
     }
 
+    @GetMapping("/login")
+    public String loginPage(Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/";
+        }
+        return "login";
+    }
+
     @GetMapping("/register")
-    public String showRegisterPage(Model model) {
+    public String showRegisterPage(Model model, Authentication authentication) {
+        if (authentication != null && authentication.isAuthenticated()) {
+            return "redirect:/";
+        }
+
         model.addAttribute("newUser", new User());
         return "register";
     }

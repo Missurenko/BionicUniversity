@@ -40,6 +40,6 @@ INSERT INTO comments (product_id, author, datetime, text, rating)
 VALUES (1, 'Инна', '2017-04-05 10:30:00', 'Хоший телефон. Единственный недостаток это цена :(', 4);
 
 INSERT INTO users (email, password, name, role)
-VALUES ('admin@mail.com', 'admin', 'Administrator', 0);
+VALUES ('admin@mail.com', '$2a$10$8IHi8NJot3CY5BDlHrivr.cVMJwtznYTNli3p7GcgwOtsF8VxgMWK', 'Administrator', 0);
 INSERT INTO users (email, password, name, role)
-VALUES ('user@mail.com', 'user', 'Username', 1);
+VALUES ('user@mail.com', '$2a$10$PgBb/VbejOXpdopzGU3AquVu9LDr9PhQ0fcBiGIYsVQeKB.p/paQm', 'Username', 1);

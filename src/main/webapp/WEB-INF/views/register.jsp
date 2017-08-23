@@ -6,6 +6,7 @@
     <title>iShop | Регистрация</title>
 </head>
 <body>
+<jsp:include page="components/header.jsp"/>
     <h1>Регистрация нового пользователя</h1>
     <form:form modelAttribute="newUser">
         <p>

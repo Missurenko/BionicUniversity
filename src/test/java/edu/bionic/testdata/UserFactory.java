@@ -9,7 +9,7 @@ public class UserFactory {
         return new User(
                 1,
                 "admin@mail.com",
-                "admin",
+                "$2a$10$8IHi8NJot3CY5BDlHrivr.cVMJwtznYTNli3p7GcgwOtsF8VxgMWK",
                 "Administrator",
                 Role.ADMIN
         );
@@ -19,7 +19,7 @@ public class UserFactory {
         return new User(
                 2,
                 "user@mail.com",
-                "user",
+                "$2a$10$PgBb/VbejOXpdopzGU3AquVu9LDr9PhQ0fcBiGIYsVQeKB.p/paQm",
                 "Username",
                 Role.USER
         );
