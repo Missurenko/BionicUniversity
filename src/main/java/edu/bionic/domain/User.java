@@ -1,5 +1,6 @@
 package edu.bionic.domain;
 
+import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -13,6 +14,7 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotBlank(message = "Обязательное поле")
+    @Email(message = "Поле должно содержать правильный email")
     private String email;
     @NotBlank(message = "Обязательное поле")
     private String password;

@@ -76,3 +76,13 @@
    * [Tэг authorize в Security Spring Tag Library (англ.)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html#taglibs-authorize)
    * [Method Security (англ.)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html#ns-method-security)
    * [Документация Spring Security (англ.\обзорно)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html)
+### Topic 13 - Testing Spring MVC
+   * [Документация по тестированию Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/integration-testing.html#spring-mvc-test-framework)
+   * [Документация по тестированию интеграции со Spring Security](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test)
+### Topic 12 - Spring Security
+   * [Краткий обзор Spring Security](https://habrahabr.ru/post/203318/)
+   * [Xml настройка Spring Security (англ.)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html#ns-config)
+   * [Настройка PasswordEncoder (англ.)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html#core-services-password-encoding)
+   * [Tэг authorize в Security Spring Tag Library (англ.)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html#taglibs-authorize)
+   * [Method Security (англ.)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html#ns-method-security)
+   * [Документация Spring Security (англ.\обзорно)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html)

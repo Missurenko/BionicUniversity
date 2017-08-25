@@ -17,7 +17,7 @@ public class UserDaoTest extends BaseDaoTest {
 
     @Test
     public void save() throws Exception {
-        User newUser = newUser();
+        User newUser = getNewUser();
         User savedUser = userDao.save(newUser);
         newUser.setId(savedUser.getId());
 

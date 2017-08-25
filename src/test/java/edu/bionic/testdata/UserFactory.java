@@ -25,7 +25,7 @@ public class UserFactory {
         );
     }
 
-    public static User newUser() {
+    public static User getNewUser() {
         return new User(
                 null,
                 "new_user@mail.com",
