@@ -5,3 +5,4 @@ public enum Color {
     WHITE,
     GRAY
 }
+// sss
