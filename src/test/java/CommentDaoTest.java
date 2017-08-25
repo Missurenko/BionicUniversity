@@ -1,4 +1,3 @@
-import edu.bionic.config.Profiles;
 import edu.bionic.dao.BaseDaoTest;
 import edu.bionic.dao.CommentDao;
 import edu.bionic.domain.Comment;
@@ -8,8 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
-import static testdata.CommentFactory.getCommentsForProduct1;
-import static testdata.CommentFactory.getNewCommentForProduct1;
+import static edu.bionic.testdata.CommentFactory.getCommentsForProduct1;
+import static edu.bionic.testdata.CommentFactory.getNewCommentForProduct1;
 
 
 public class CommentDaoTest extends BaseDaoTest {

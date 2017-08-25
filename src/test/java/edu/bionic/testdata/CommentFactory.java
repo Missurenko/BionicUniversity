@@ -1,4 +1,4 @@
-package testdata;
+package edu.bionic.testdata;
 
 import com.google.common.collect.Lists;
 import edu.bionic.domain.Comment;

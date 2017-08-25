@@ -1,8 +1,7 @@
-import edu.bionic.config.Profiles;
 import edu.bionic.dao.BaseDaoTest;
 import edu.bionic.dao.ProductDao;
 import edu.bionic.domain.Product;
-import testdata.ProductFactory;
+import edu.bionic.testdata.ProductFactory;
 import org.junit.Assert;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;

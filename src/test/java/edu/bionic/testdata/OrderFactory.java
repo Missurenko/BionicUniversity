@@ -1,4 +1,4 @@
-package testdata;
+package edu.bionic.testdata;
 
 import com.google.common.collect.Lists;
 import edu.bionic.domain.Order;
@@ -19,7 +19,8 @@ public class OrderFactory {
                 "Олег",
                 "oleg@gmail.com",
                 "095664356273",
-                "ул. Дорогожицкая, 1"
+                "ул. Дорогожицкая, 1",
+                UserFactory.getUser()
         );
     }
 
@@ -32,7 +33,8 @@ public class OrderFactory {
                 "Аня",
                 "anya@gmail.com",
                 "095664357685",
-                "ул. Артема, 30"
+                "ул. Артема, 30",
+                null
         );
     }
 
@@ -40,7 +42,11 @@ public class OrderFactory {
         return Lists.newArrayList(getOrder1(), getOrder2());
     }
 
-    public static Order getNewOrder() {
+    public static List<Order> getAllOrdersForUser() {
+        return Lists.newArrayList(getOrder1());
+    }
+
+    public static Order getNewOrderForUser() {
         return new Order(
                 null,
                 LocalDateTime.of(2017, Month.AUGUST, 11, 11, 11),
@@ -49,7 +55,8 @@ public class OrderFactory {
                 "Игорь",
                 "ihor@gmail.com",
                 "0956644347685",
-                "ул. Артема, 31"
+                "ул. Артема, 31",
+                UserFactory.getUser()
         );
     }
 
