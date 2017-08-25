@@ -14,4 +14,5 @@ import static edu.bionic.config.Profiles.*;
 @ActiveProfiles({HSQLDB, JPA})
 @Sql(scripts = "classpath:db/fillDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public abstract class BaseDaoTest {
+    /// hhhhh
 }
