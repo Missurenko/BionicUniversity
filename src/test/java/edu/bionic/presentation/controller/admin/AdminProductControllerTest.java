@@ -3,6 +3,7 @@ package edu.bionic.presentation.controller.admin;
 import edu.bionic.presentation.controller.BaseControllerTest;
 import edu.bionic.testdata.UserFactory;
 import org.junit.Test;
+import org.springframework.security.test.context.support.WithAnonymousUser;
 import org.springframework.security.test.context.support.WithUserDetails;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -25,10 +26,11 @@ public class AdminProductControllerTest extends BaseControllerTest {
     }
 
     @Test
+    @WithUserDetails("user@mail.com")
     public void showProductsNotAdmin() throws Exception {
         mockMvc.perform(
                 get("/admin/products")
-                        .with(authenticatedWithUser(UserFactory.getUser()))
+//                        .with(authenticatedWithUser(UserFactory.getUser()))
         )
                 .andDo(print())
                 .andExpect(status().isForbidden());

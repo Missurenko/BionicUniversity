@@ -1,29 +1,68 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>iShop | Предыдущие заказы</title>
-</head>
+<c:set var="title" value="Предыдущие заказы" scope="request"/>
+<jsp:include page="../components/head.jsp"/>
 <body>
 <jsp:include page="../components/header.jsp"/>
-    <h1>Предыдущие заказы</h1>
-    <c:if test="${orders.size() == 0}">
-        Истоиря заказов на данный момент отсутствует
-    </c:if>
-    <c:forEach items="${orders}" var="order">
-        <p>
-            <strong>Дата:</strong> ${order.dateTime.format(dateTimeFormatter)} <br/>
-            <strong>Имя:</strong> ${order.name} <br/>
-            <strong>Почта:</strong> ${order.email} <br/>
-            <strong>Телефон:</strong> ${order.phone} <br/>
-            <strong>Общая сумма:</strong> ${order.totalAmount} <br/>
-            <strong>Товары:</strong> <br/>
-            <c:forEach items="${order.products}" var="product">
-                ${product.name} ${product.color} ${product.capacity} GB <br/>
-            </c:forEach>
-            <strong>Адрес доставки:</strong> ${order.address}
-        </p>
-    </c:forEach>
-    <a href="<c:url value="/"/> "><button>На главную</button></a>
+<div id="main" class="container">
+    <div class="row">
+
+        <div class="col-12 mt-5">
+
+            <h1 class="text-center">Предыдущие заказы</h1>
+
+            <c:if test="${orders.size() == 0}">
+                <div class="alert alert-dark">
+                    Истоиря заказов на данный момент отсутствует
+                </div>
+            </c:if>
+
+            <table class="table mt-3 table-responsive">
+                <tbody>
+                <c:forEach items="${orders}" var="order">
+                    <tr class="table-dark">
+                        <th>Дата</th>
+                        <td colspan="2">${order.dateTime.format(dateTimeFormatter)}</td>
+                    </tr>
+                    <tr>
+                        <th>Имя</th>
+                        <th>Товары</th>
+                        <th>Общая сумма</th>
+                    </tr>
+                    <tr>
+                        <td>${order.name}</td>
+                        <td>
+                            <c:forEach items="${order.products}" var="product">
+                                ${product.name} ${product.color} ${product.capacity} GB <br/>
+                            </c:forEach>
+                        </td>
+                        <td>${order.totalAmount}</td>
+                    </tr>
+                    <tr>
+                        <th>Почта</th>
+                        <th>Телефон</th>
+                        <th>Адрес доставки</th>
+                    </tr>
+                    <tr>
+                        <td>${order.email}</td>
+                        <td>${order.phone}</td>
+                        <td>${order.address}</td>
+                    </tr>
+                </c:forEach>
+                </tbody>
+            </table>
+
+            <div class="text-center text-sm-left mt-5">
+                <a href="<c:url value="/"/>" class="btn btn-light">
+                    <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                    На главную
+                </a>
+            </div>
+
+        </div>
+    </div>
+</div>
+<jsp:include page="../components/footer.jsp"/>
 </body>
 </html>

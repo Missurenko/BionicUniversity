@@ -5,24 +5,45 @@
        xmlns:jdbc="http://www.springframework.org/schema/jdbc" xmlns:tx="http://www.springframework.org/schema/tx"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc.xsd http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd">
 
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
-        <property name="driverClass" value="${jdbc.driver}"/>
-        <property name="url" value="${database.url}"/>
-        <property name="username" value="${database.username}"/>
-        <property name="password" value="${database.password}"/>
-    </bean>
-
     <jdbc:initialize-database data-source="dataSource" enabled="${jdbc.database.init}">
         <jdbc:script location="classpath:db/${jdbc.initLocation}"/>
         <jdbc:script encoding="utf-8" location="classpath:db/fillDB.sql"/>
     </jdbc:initialize-database>
 
-    <beans profile="postgres">
-        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
-    </beans>
-
     <beans profile="hsqldb">
         <context:property-placeholder location="classpath:db/hsqldb.properties" system-properties-mode="OVERRIDE"/>
+
+        <bean id="dataSource" class="org.springframework.jdbc.datasource.SimpleDriverDataSource">
+            <property name="driverClass" value="${jdbc.driver}"/>
+            <property name="url" value="${database.url}"/>
+            <property name="username" value="${database.username}"/>
+            <property name="password" value="${database.password}"/>
+        </bean>
+    </beans>
+
+    <beans profile="postgres">
+        <context:property-placeholder location="classpath:db/postgres.properties" system-properties-mode="OVERRIDE"/>
+
+        <!-- HikariCP configuration -->
+        <bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+            <property name="poolName" value="springHikariCP" />
+            <property name="connectionTestQuery" value="SELECT 1" />
+            <property name="driverClassName" value="${jdbc.driver}" />
+            <property name="jdbcUrl" value="${database.url}" />
+            <property name="maximumPoolSize" value="${jdbc.maximumPoolSize}" />
+            <property name="idleTimeout" value="${jdbc.idleTimeout}" />
+
+            <property name="dataSourceProperties">
+                <props>
+                    <prop key="user">${database.username}</prop>
+                    <prop key="password">${database.password}</prop>
+                </props>
+            </property>
+        </bean>
+
+        <bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource" destroy-method="close">
+            <constructor-arg ref="hikariConfig" />
+        </bean>
     </beans>
 
     <beans profile="jdbc">

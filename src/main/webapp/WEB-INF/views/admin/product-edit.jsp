@@ -3,49 +3,78 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
-<head>
-    <title>iShop Админка | Редактирование продукта</title>
-</head>
+<c:set var="title" value="Редактирование продукта" scope="request"/>
+<jsp:include page="../components/head.jsp"/>
 <body>
 <jsp:include page="../components/header.jsp"/>
-    <h1>${isNew ? "Новый товар" : "Редактирование товара №".concat(product.id)}</h1>
-    <form:form modelAttribute="product">
-        <form:hidden path="id"/>
-        <p>
-            <label for="name">Наименование</label>
-            <form:input path="name"/>
-            <form:errors path="name" cssStyle="color: red"/>
-        </p>
-        <p>
-            <label for="price">Цена</label>
-            <form:input path="price"/>
-            <form:errors path="price" cssStyle="color: red"/>
-        </p>
-        <p>
-            <label for="color">Цвет</label><br>
-            <form:radiobuttons path="color" items="<%= Color.values()%>"/>
-            <form:errors path="color" cssStyle="color: red"/>
+<div id="main" class="container">
+    <div class="row">
+        <div class="col-12 mt-5">
 
-        </p>
-        <p>
-            <label for="capacity">Память, GB</label>
-            <form:input path="capacity"/>
-            <form:errors path="capacity" cssStyle="color: red"/>
-        </p>
-        <p>
-            <label for="display">Экран</label>
-            <form:input path="display"/>
-            <form:errors path="display" cssStyle="color: red"/>
-        </p>
-        <p>
-            <label for="description">Описание</label><br>
-            <form:textarea path="description" rows="10" cols="30"/>
-        </p>
-        <a href="<c:url value="/admin/products"/>"><button type="button">Вернуться</button></a>
-        <button type="submit">Сохранить</button>
-    </form:form>
-    <c:if test="${updateIsSuccessful}">
-        <span style="color: green;">Изменения сохранены</span>
-    </c:if>
+            <h1 class="text-center">${isNew ? "Новый товар" : "Редактирование товара №".concat(product.id)}</h1>
+
+            <c:if test="${updateIsSuccessful}">
+                <div class="alert alert-success mt-5">Изменения сохранены</div>
+            </c:if>
+
+            <form:form modelAttribute="product">
+                <form:hidden path="id"/>
+                <div class="form-group">
+                    <label for="name">Наименование</label>
+                    <form:input path="name" class="form-control"/>
+                    <form:errors path="name" class="text-danger"/>
+                </div>
+                <div class="form-group">
+                    <label for="price">Цена</label>
+                    <form:input path="price" class="form-control"/>
+                    <form:errors path="price" class="text-danger"/>
+                </div>
+                <div class="form-group">
+                    <label for="color">Цвет</label>
+                    <form:radiobuttons path="color" items="<%= Color.values()%>"/>
+                    <form:errors path="color" class="text-danger"/>
+                </div>
+                <div class="row">
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="capacity">Память, GB</label>
+                            <form:input path="capacity" class="form-control"/>
+                            <form:errors path="capacity" class="text-danger"/>
+                        </div>
+                    </div>
+                    <div class="col-12 col-sm-6">
+                        <div class="form-group">
+                            <label for="display">Экран</label>
+                            <form:input path="display" class="form-control"/>
+                            <form:errors path="display" class="text-danger"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description">Описание</label><br>
+                    <form:textarea path="description" rows="10" cols="30" class="form-control"/>
+                </div>
+
+                <div class="form-group">
+                    <div class="row justify-content-between">
+                        <div class="col-auto">
+                            <a href="<c:url value="/admin/products"/>" class="btn btn-light">
+                                <i class="fa fa-chevron-left" aria-hidden="true"></i>
+                                Вернуться
+                            </a>
+                        </div>
+                        <div class="col-auto">
+
+                            <button type="submit" class="btn btn-dark">Сохранить</button>
+                        </div>
+                    </div>
+                </div>
+            </form:form>
+
+        </div>
+    </div>
+</div>
+
+<jsp:include page="../components/footer.jsp"/>
 </body>
 </html>

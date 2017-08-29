@@ -79,6 +79,13 @@
 ### Topic 13 - Testing Spring MVC
    * [Документация по тестированию Spring MVC](http://docs.spring.io/spring/docs/current/spring-framework-reference/html/integration-testing.html#spring-mvc-test-framework)
    * [Документация по тестированию интеграции со Spring Security](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/#test)
+### Topic 14 - Finalizing App. HikariCP. CSS and Bootstrap
+   * [Зачем использовать пулы соединений](https://habrahabr.ru/post/194142/)
+   * [HikariCP Github page (англ.\обзорно)](https://github.com/brettwooldridge/HikariCP)
+   * [Bootstrap 4 page (англ.)](http://getbootstrap.com/)
+   * [Начало работы с Bootstrap](https://tokar.ua/read/6901)
+   * [Официальная документация Bootstrap](https://getbootstrap.com/docs/4.0/getting-started/introduction/)
+   * [Курс по обучению HTML & CSS](https://htmlacademy.ru/)
 ### Topic 12 - Spring Security
    * [Краткий обзор Spring Security](https://habrahabr.ru/post/203318/)
    * [Xml настройка Spring Security (англ.)](https://docs.spring.io/spring-security/site/docs/current/reference/htmlsingle/index.html#ns-config)

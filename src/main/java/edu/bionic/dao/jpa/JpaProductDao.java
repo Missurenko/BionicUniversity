@@ -63,7 +63,15 @@ public class JpaProductDao implements ProductDao {
 
     @Override
     public int getCount(String name, BigDecimal min, BigDecimal max) {
-        return 0;
+        TypedQuery<Long> query = this.entityManager.createQuery("SELECT COUNT(p) FROM Product p " +
+                "WHERE p.name LIKE :name " +
+                "AND (:min is NULL OR p.price >= :min) " +
+                "AND (:max is NULL OR p.price <= :max) ", Long.class);
+        query.setParameter("name", StringUtils.isEmpty(name) ? "%" : "%" + name + "%");
+        query.setParameter("min", min);
+        query.setParameter("max", max);
+
+        return query.getSingleResult().intValue();
     }
 
     @Override

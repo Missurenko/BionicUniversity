@@ -34,7 +34,7 @@ public class OrderControllerTest extends BaseControllerTest {
         )
                 .andDo(print())
                 .andExpect(status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.redirectedUrlPattern("**/login"));
+                .andExpect(redirectedUrlPattern("**/login"));
     }
 
     @Test

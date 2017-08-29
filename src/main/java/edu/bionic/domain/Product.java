@@ -136,7 +136,7 @@ public class Product {
     }
 
     public String printInfo() {
-        return String.format("%d. %s %s %d - %.2f", id, name, color, capacity, price);
+        return String.format("<span>id: %d</span><h3>%s</h3><span>цвет: %s</span><span>объем: %d</span><span class=\"price\">%.2f USD<span>", id, name, color, capacity, price);
     }
 
     public String getDescription() {
